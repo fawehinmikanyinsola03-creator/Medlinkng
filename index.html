@@ -4,128 +4,213 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MEDLINK.NG - Find Doctor, Pharmacy & Emergency in Nigeria</title>
+<meta name="description" content="Call emergency lines, hospitals and pharmacies in Ibadan direct from your phone.">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+html{scroll-behavior:smooth}
 body{background:#f0f7f4;color:#1a1a1a;padding-bottom:90px}
+a{color:inherit;text-decoration:none}
 .top{background:#0a7a42;color:white;padding:20px 16px 24px;text-align:center;border-radius:0 0 24px 24px}
 .top h1{font-size:28px;letter-spacing:1px}
 .top p{opacity:.9;font-size:14px;margin-top:4px}
 .search{margin:14px 16px;background:white;border-radius:14px;padding:12px;display:flex;gap:8px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-.search input{flex:1;border:none;outline:none;font-size:16px}
-.search button{background:#0a7a42;color:white;border:none;padding:10px 16px;border-radius:10px;font-weight:700}
+.search input{flex:1;min-width:0;border:none;outline:none;font-size:16px}
+.search button{background:#0a7a42;color:white;border:none;padding:10px 16px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px}
-.card{background:white;border-radius:16px;padding:16px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer}
+.card{display:block;background:white;border-radius:16px;padding:16px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)}
 .card span{font-size:32px;display:block}
 .card b{display:block;margin-top:8px;font-size:15px}
 .card small{color:#666;font-size:12px}
-.section{margin:18px 16px 0}
-.section h3{font-size:17px;margin-bottom:10px}
+.card.red{background:#e11d48;color:white}
+.card.red small{color:#ffe4e6}
+section{scroll-margin-top:12px}
+.section{margin:22px 16px 0}
+.section h2{font-size:19px;margin-bottom:4px}
+.section .sub{font-size:13px;color:#555;margin-bottom:12px}
+
+/* Emergency */
+#emergency{background:#dc2626;color:white;border-radius:20px;padding:20px 16px;box-shadow:0 6px 20px rgba(220,38,38,.35)}
+#emergency h2{font-size:22px;letter-spacing:.5px}
+#emergency .alert{background:#7f1d1d;border-radius:12px;padding:12px 14px;font-weight:800;font-size:16px;margin:12px 0 14px;line-height:1.35}
+.emg{display:flex;align-items:center;justify-content:space-between;gap:10px;background:white;color:#b91c1c;border-radius:14px;padding:14px 16px;margin-top:10px;font-weight:800;font-size:17px;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.emg small{display:block;font-size:12px;font-weight:600;color:#444;margin-top:2px}
+.emg .free{background:#16a34a;color:white;font-size:11px;font-weight:800;padding:4px 8px;border-radius:20px;white-space:nowrap}
+.emg.main{background:#fef08a;color:#7f1d1d;font-size:20px}
+#emergency .note{font-size:13px;margin-top:14px;text-align:center;opacity:.95}
+
+/* Listings */
 .doc{background:white;border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.avatar{width:52px;height:52px;border-radius:50%;background:#e6f4ec;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
-.doc b{font-size:15px}
+.avatar{width:48px;height:48px;border-radius:50%;background:#e6f4ec;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.doc .num{font-size:12px;color:#0a7a42;font-weight:800}
+.doc b{font-size:15px;display:block}
 .doc p{font-size:12px;color:#666;margin:2px 0}
-.btn{border:none;padding:8px 12px;border-radius:20px;font-weight:700;font-size:13px;cursor:pointer}
+.actions{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.btn{display:inline-block;border:none;padding:9px 14px;border-radius:20px;font-weight:700;font-size:13px;cursor:pointer}
 .call{background:#0a7a42;color:white}
 .wa{background:#25D366;color:white}
-.emg{background:#e11d48;color:white;width:100%;padding:14px;border-radius:14px;font-size:16px;margin-top:8px}
-.bpbox{background:white;border-radius:16px;padding:16px;margin:0 16px}
-.bpbox input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:6px 0;font-size:16px}
-.aibox{background:white;border-radius:16px;padding:14px;margin:0 16px}
-#chat{height:180px;overflow-y:auto;background:#f8f8f8;border-radius:10px;padding:10px;font-size:14px;margin-bottom:10px}
-.msg{margin-bottom:8px;padding:8px 10px;border-radius:10px;background:white}
-.msg.me{background:#d1fae5;text-align:right}
+.empty{font-size:14px;color:#666;padding:10px 0}
+
+/* BP */
+.bpbox{background:white;border-radius:16px;padding:16px}
+.bpbox label{font-size:13px;color:#444}
+.bpbox input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:6px 0 10px;font-size:16px}
+
 .nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #eee;z-index:10}
-.nav div{text-align:center;font-size:11px;color:#666;cursor:pointer}
-.nav div.active{color:#0a7a42;font-weight:800}
+.nav a{text-align:center;font-size:11px;color:#666}
+.nav a.sos{color:#dc2626;font-weight:800}
 .hidden{display:none}
-input[type=text]{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px}
 </style>
 </head>
 <body>
 
-<div id="home">
-<div class="top"><h1>🏥 MEDLINK.NG</h1><p>Your Health, One Link Away • Ibadan • Lagos • Ondo City</p></div>
-<div class="search"><input id="q" placeholder="Search doctor, pharmacy..."><button onclick="search()">Search</button></div>
-<div class="grid">
-<div class="card" onclick="show('doctors')"><span>🩺</span><b>Find Doctor</b><small>Call direct</small></div>
-<div class="card" onclick="show('pharmacy')"><span>💊</span><b>Pharmacy</b><small>Near you</small></div>
-<div class="card" onclick="show('emergency')"><span>🚨</span><b>Emergency</b><small>Call 112</small></div>
-<div class="card" onclick="show('bp')"><span>🩸</span><b>Check BP</b><small>Save history</small></div>
-</div>
-<div class="section"><h3>⭐ Top Doctors Today</h3>
-<div id="docList"></div>
-</div>
-<div class="section"><h3>🤖 Ask MEDLINK AI</h3>
-<div class="aibox"><div id="chat"><div class="msg">Hello! I be MEDLINK AI. Ask me about headache, fever, malaria, BP, cough... I go help you.</div></div>
-<input type="text" id="aiInput" placeholder="e.g. I have headache and fever"><br><br>
-<button class="btn call" style="width:100%;padding:12px" onclick="askAI()">Ask AI →</button></div>
-</div>
+<header class="top" id="home"><h1>🏥 MEDLINK.NG</h1><p>Your Health, One Link Away • Ibadan, Oyo State</p></header>
+
+<form class="search" onsubmit="search(event)"><input id="q" placeholder="Search hospital, pharmacy, area..." aria-label="Search"><button type="submit">Search</button></form>
+
+<nav class="grid" aria-label="Quick links">
+<a class="card" href="#doctors"><span>🩺</span><b>Find Doctor</b><small>Call direct</small></a>
+<a class="card" href="#pharmacy"><span>💊</span><b>Pharmacy</b><small>Call / WhatsApp</small></a>
+<a class="card red" href="#emergency"><span>🚨</span><b>Emergency</b><small>Call 112</small></a>
+<a class="card" href="#bp"><span>🩸</span><b>Check BP</b><small>Save history</small></a>
+</nav>
+
+<!-- 1. EMERGENCY -->
+<section id="emergency" class="section">
+<h2>🚨 EMERGENCY</h2>
+<p class="alert">If person no fit breathe or dey bleed, call 112 now.</p>
+
+<a class="emg main" href="tel:112"><span>📞 CALL 112<small>National Emergency</small></span><span class="free">FREE</span></a>
+<a class="emg" href="tel:615"><span>📞 CALL 615<small>Oyo State Emergency</small></span><span class="free">FREE</span></a>
+<a class="emg" href="tel:07038636433"><span>📞 CALL 07038636433<small>Oyo Medical Emergency</small></span></a>
+<a class="emg" href="tel:122"><span>🚗 CALL 122<small>FRSC Road Accident</small></span></a>
+<a class="emg" href="tel:08131733447"><span>🏥 CALL 08131733447<small>UCH Ibadan</small></span></a>
+<a class="emg" href="tel:08002255372"><span>🚑 CALL 08002255372<small>Ambulance ERA</small></span><span class="free">TOLL-FREE</span></a>
+
+<p class="note">Tell them your exact location when you call.</p>
+</section>
+
+<!-- 2. FIND DOCTOR -->
+<section id="doctors" class="section">
+<h2>🩺 Find Doctor</h2>
+<p class="sub">Hospitals &amp; clinics in Ibadan. Tap to call.</p>
+
+<div class="doc" data-search="uch university college hospital ibadan general emergency">
+<div class="avatar">🏥</div>
+<div style="flex:1"><span class="num">1</span><b>UCH Ibadan</b><p>General &amp; Emergency</p>
+<div class="actions"><a class="btn call" href="tel:08131733447">📞 CALL 08131733447</a></div></div>
 </div>
 
-<div id="doctors" class="hidden">
-<div class="top"><h1>🩺 Find Doctor</h1><p>Ibadan • Lagos • Ondo City</p></div>
-<div class="section" id="allDocs"></div>
-<button class="btn call" style="margin:0 16px" onclick="show('home')">← Back Home</button>
+<div class="doc" data-search="adeoyo teaching hospital yemetu ibadan">
+<div class="avatar">🏥</div>
+<div style="flex:1"><span class="num">2</span><b>Adeoyo Teaching Hospital</b><p>Yemetu, Ibadan</p>
+<div class="actions"><a class="btn call" href="tel:08037179610">📞 CALL 08037179610</a></div></div>
 </div>
 
-<div id="pharmacy" class="hidden">
-<div class="top"><h1>💊 Pharmacy Near You</h1><p>Call / WhatsApp direct</p></div>
-<div class="section" id="allPharm"></div>
-<button class="btn call" style="margin:0 16px" onclick="show('home')">← Back Home</button>
+<div class="doc" data-search="iv medics clinic bodija ibadan">
+<div class="avatar">🩺</div>
+<div style="flex:1"><span class="num">3</span><b>IV Medics Clinic</b><p>Bodija, Ibadan</p>
+<div class="actions"><a class="btn call" href="tel:09162731000">📞 CALL 09162731000</a></div></div>
 </div>
 
-<div id="emergency" class="hidden">
-<div class="top" style="background:#e11d48"><h1>🚨 EMERGENCY</h1><p>If e serious, call now - No wait</p></div>
-<div class="section">
-<button class="btn emg" onclick="location.href='tel:112'">📞 CALL 112 - EMERGENCY</button>
-<button class="btn emg" style="background:#0a7a42" onclick="location.href='tel:08086416959'">📞 CALL KAJOSAC PHARMACY</button>
-<button class="btn emg" style="background:#111" onclick="location.href='tel:199'">🚑 CALL AMBULANCE - 199</button>
-<button class="btn emg" style="background:#2563eb" onclick="location.href='tel:08012345678'">👮 CALL POLICE</button>
-<p style="margin-top:12px;font-size:13px;color:#666;text-align:center">Ondo City • Ibadan • Lagos<br>Share your location when you call.</p>
-</div>
-<button class="btn call" style="margin:0 16px" onclick="show('home')">← Back Home</button>
+<div class="doc" data-search="jericho nursing home ibadan">
+<div class="avatar">🩺</div>
+<div style="flex:1"><span class="num">4</span><b>Jericho Nursing Home</b><p>Jericho, Ibadan</p>
+<div class="actions"><a class="btn call" href="tel:08054076082">📞 CALL 08054076082</a></div></div>
 </div>
 
-<div id="bp" class="hidden">
-<div class="top"><h1>🩸 Blood Pressure</h1><p>Check & Save</p></div>
-<div class="section"><div class="bpbox">
-<label>Systolic (Top) - e.g 120</label><input id="sys" type="number" placeholder="120">
-<label>Diastolic (Bottom) - e.g 80</label><input id="dia" type="number" placeholder="80">
+<div class="doc" data-search="lanark specialist hospital ring road ibadan">
+<div class="avatar">🏥</div>
+<div style="flex:1"><span class="num">5</span><b>Lanark Specialist Hospital</b><p>Ring Road, Ibadan</p>
+<div class="actions"><a class="btn call" href="tel:08028257094">📞 CALL 08028257094</a></div></div>
+</div>
+<p class="empty hidden">No hospital match your search.</p>
+</section>
+
+<!-- 3. PHARMACY -->
+<section id="pharmacy" class="section">
+<h2>💊 Pharmacy</h2>
+<p class="sub">Pharmacies in Ibadan. Tap to call.</p>
+
+<div class="doc" data-search="medplus pharmacy ring road jericho dugbe ibadan">
+<div class="avatar">💊</div>
+<div style="flex:1"><span class="num">1</span><b>Medplus Pharmacy</b><p>Ring Road / Jericho / Dugbe, Ibadan</p>
+<div class="actions"><a class="btn call" href="tel:08082701895">📞 CALL 08082701895</a><a class="btn wa" href="https://wa.me/2347025001673" target="_blank" rel="noopener">WhatsApp 07025001673</a></div></div>
+</div>
+
+<div class="doc" data-search="beyond medplus pharmacy ibadan">
+<div class="avatar">💊</div>
+<div style="flex:1"><span class="num">2</span><b>Beyond Medplus</b><p>Ibadan</p>
+<div class="actions"><a class="btn call" href="tel:08113590026">📞 CALL 08113590026</a></div></div>
+</div>
+
+<div class="doc" data-search="odeji pharmacy ibadan">
+<div class="avatar">💊</div>
+<div style="flex:1"><span class="num">3</span><b>Odeji Pharmacy</b><p>Ibadan</p>
+<div class="actions"><a class="btn call" href="tel:09033646411">📞 CALL 09033646411</a></div></div>
+</div>
+<p class="empty hidden">No pharmacy match your search.</p>
+</section>
+
+<!-- BP CHECK -->
+<section id="bp" class="section">
+<h2>🩸 Check Blood Pressure</h2>
+<p class="sub">Enter your reading. History is saved on this phone only.</p>
+<div class="bpbox">
+<label for="sys">Systolic (Top) - e.g 120</label><input id="sys" type="number" inputmode="numeric" placeholder="120">
+<label for="dia">Diastolic (Bottom) - e.g 80</label><input id="dia" type="number" inputmode="numeric" placeholder="80">
 <button class="btn call" style="width:100%;padding:12px" onclick="checkBP()">Check My BP →</button>
 <div id="bpResult" style="margin-top:12px;font-weight:700"></div>
 <div id="bpHistory" style="margin-top:10px;font-size:13px;color:#555"></div>
-</div></div>
-<button class="btn call" style="margin:0 16px" onclick="show('home')">← Back Home</button>
 </div>
+</section>
 
-<div class="nav">
-<div class="active" onclick="show('home')">🏠<br>Home</div>
-<div onclick="show('doctors')">🩺<br>Doctors</div>
-<div onclick="show('pharmacy')">💊<br>Pharmacy</div>
-<div onclick="show('emergency')">🚨<br>Emergency</div>
-<div onclick="show('bp')">🩸<br>BP</div>
-</div>
+<nav class="nav" aria-label="Main">
+<a href="#home">🏠<br>Home</a>
+<a href="#doctors">🩺<br>Doctors</a>
+<a href="#pharmacy">💊<br>Pharmacy</a>
+<a class="sos" href="#emergency">🚨<br>Emergency</a>
+<a href="#bp">🩸<br>BP</a>
+</nav>
 
 <script>
-const doctors=[
-{name:"Dr. Adebayo - General Doctor",loc:"Ibadan • Bodija",phone:"08031234567",tag:"General • Fever • Malaria"},
-{name:"Dr. Funke - Child Doctor",loc:"Lagos • Lekki",phone:"08052345678",tag:"Children • Baby"},
-{name:"Dr. Kola - BP & Heart",loc:"Ondo City • Yaba",phone:"08086416959",tag:"BP • Heart • Diabetes"},
-{name:"Dr. Chiamaka - Women Health",loc:"Ibadan • Ring Road",phone:"08063456789",tag:"Women • Pregnancy"},
-{name:"Dr. Musa - Eye Doctor",loc:"Lagos • Ikeja",phone:"08074567890",tag:"Eye • Glasses"},
-{name:"Dr. Tunde - Bone & Joint",loc:"Ondo City",phone:"08085678901",tag:"Bone • Waist Pain"}
-];
-const pharm=[
-{name:"Kajosac Pharmacy",loc:"Ondo City • Main Market",phone:"08086416959"},
-{name:"HealthPlus Pharmacy",loc:"Ibadan • Bodija",phone:"08031234567"},
-{name:"MedPlus Pharmacy",loc:"Lagos • Lekki Phase 1",phone:"08052345678"},
-{name:"City Care Pharmacy",loc:"Ibadan • Dugbe",phone:"08063456789"}
-];
-function card(d,isPharm){
-return `<div class="doc"><div class="avatar">${isPharm?'💊':'🩺'}</div><div style="flex:1"><b>${d.name}</b><p>${d.loc}</p><p>${d.tag||'Open Now • Delivery Available'}</p><div style="margin-top:6px;display:flex;gap:6px"><button class="btn call" onclick="location.href='tel:${d.phone}'">📞 Call</button><button class="btn wa" onclick="window.open('https://wa.me/234${d.phone.slice(1)}?text=Hello, I need medicine / doctor from MEDLINK.NG')">WhatsApp</button></div></div></div>`;
+function search(e){
+  e.preventDefault();
+  var q=document.getElementById('q').value.trim().toLowerCase();
+  var first=null;
+  ['doctors','pharmacy'].forEach(function(id){
+    var sec=document.getElementById(id),shown=0;
+    sec.querySelectorAll('.doc').forEach(function(el){
+      var match=!q||el.dataset.search.indexOf(q)>-1||el.textContent.toLowerCase().indexOf(q)>-1;
+      el.classList.toggle('hidden',!match);
+      if(match)shown++;
+    });
+    sec.querySelector('.empty').classList.toggle('hidden',shown>0);
+    if(shown&&!first)first=sec;
+  });
+  (first||document.getElementById('doctors')).scrollIntoView();
 }
-document.getElementById('docList').innerHTML=doctors.slice(0,3).map(d=>card(d)).join('');
-document.getElementById('allDocs').innerHTML=doctors.map(d=>card(d)).join('');
-document.getElementById('allPharm').innerHTML=pharm.map(d=>card(d,true)).join('');
-function show(id){['home','doctors','pharmacy','emergency','bp'].forEach(x=>document.getElementById(x).classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo(0,0);}
-function search(){let q=document.getElementById('q').value.toLowerCase();if(!q) return alert('Type doctor or pharmacy name');show('doctors');document.getElementById('allDocs').innerHTML=doctors.filter(d=
+
+function bpLabel(s,d){
+  if(s>=180||d>=120)return['🚨 VERY HIGH - Go hospital now or call 112','#dc2626'];
+  if(s>=140||d>=90)return['⚠️ HIGH - See a doctor soon','#ea580c'];
+  if(s>=130||d>=80)return['🟡 A bit high - Watch am, check again','#ca8a04'];
+  if(s<90||d<60)return['🔵 LOW - Rest, drink water, see doctor if dizzy','#2563eb'];
+  return['✅ NORMAL - Well done','#0a7a42'];
+}
+function renderBP(){
+  var h=JSON.parse(localStorage.getItem('bpHistory')||'[]');
+  document.getElementById('bpHistory').innerHTML=h.length?'<b>History:</b><br>'+h.slice(-5).reverse().map(function(r){return r.date+' — '+r.s+'/'+r.d}).join('<br>'):'';
+}
+function checkBP(){
+  var s=+document.getElementById('sys').value,d=+document.getElementById('dia').value,out=document.getElementById('bpResult');
+  if(!s||!d){out.style.color='#dc2626';out.textContent='Enter both numbers';return;}
+  var r=bpLabel(s,d);out.style.color=r[1];out.textContent=s+'/'+d+' — '+r[0];
+  var h=JSON.parse(localStorage.getItem('bpHistory')||'[]');
+  h.push({s:s,d:d,date:new Date().toLocaleDateString()});
+  localStorage.setItem('bpHistory',JSON.stringify(h.slice(-20)));
+  renderBP();
+}
+renderBP();
+</script>
+</body>
+</html>
